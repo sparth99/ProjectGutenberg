@@ -104,20 +104,22 @@ def getFrequencyOfWord(word):
         res.append(num_occur)
     print(res)
 
+
 def getChapterQuoteAppears(quote):
     chapters = split_chapter()
+    
     for x in range(0, len(chapters)):
         current_chapter = chapters[x].split("\n")
+        current_string = ""
         for line in current_chapter:
-            if quote.lower() in line.lower():
-                print("Chapter: ")
-                print(x)
-                return x
+            clean_line = ''.join([c for c in line if c not in string.punctuation]).lower()
+            current_string += clean_line
+        if ''.join([c for c in quote if c not in string.punctuation]).lower() in current_string:
+            print("Chapter")
+            print(x)
+            return x
+            
     return -1
-
-
-
-
 
 def split_chapter():
     with open(PATH, 'r') as f:
